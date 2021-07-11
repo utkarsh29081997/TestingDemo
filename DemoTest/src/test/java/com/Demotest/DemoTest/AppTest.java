@@ -15,9 +15,9 @@ import org.openqa.selenium.support.ui.Select;
  * Unit test for simple App.
  */
 public class AppTest {
+	public static WebDriver driver;
 public static void main(String args[]){
-	    
-		WebDriver driver;
+	    try{
 		System.setProperty("webdriver.chrome.driver", "S:\\studyparts\\Drivers\\Drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://opensource-demo.orangehrmlive.com/");
@@ -28,39 +28,44 @@ public static void main(String args[]){
 		driver.findElement(By.xpath("//input[@id='txtPassword']")).sendKeys("admin123");
 		driver.findElement(By.xpath("//input[@value='LOGIN']")).click();
 		driver.findElement(By.xpath("//b[text()='Admin']")).click();
-		
-		Select select = new Select(driver.findElement(By.id("searchSystemUser_userType")));
-		select.selectByVisibleText("Admin");
-		driver.findElement(By.name("_search")).click();
-		
-		// Username and Employee name Match
-		List<WebElement> listofUsername = driver.findElements(By.xpath("//table[@class='table hover']//td[2]//a"));
-		List<WebElement> listofEmpname = driver.findElements(By.xpath("//table[@class='table hover']//td[4]"));
-		List<String> usernameregx = new ArrayList<String>();
-		
-		Iterator<WebElement> it = listofUsername.iterator();
-		Iterator<WebElement> itemp = listofEmpname.iterator();
-		
-		while(it.hasNext()&&itemp.hasNext()){
-			String userName = it.next().getText();
-			String EmpName = itemp.next().getText();
-			String replaceUsername = userName.replace(".", " ");
-			if(EmpName.equals(replaceUsername)){
-			usernameregx.add(replaceUsername);
-			}
-			else{
-				usernameregx.add("Nothing to Add");
-			}
-		}
-		
-		Iterator<String> it1 = usernameregx.iterator();
-		
-		while(it1.hasNext()){
-			System.out.println(it1.next());
-		}
+		driver.findElement(By.xpath("//b[text()='PIM']")).click();
 		
 		
 		
+		/* Extract same employess who has same username and Employee name */ 
+//		Select select = new Select(driver.findElement(By.id("searchSystemUser_userType")));
+//		select.selectByVisibleText("Admin");
+//		driver.findElement(By.name("_search")).click();
+//		
+//		// Username and Employee name Match
+//		List<WebElement> listofUsername = driver.findElements(By.xpath("//table[@class='table hover']//td[2]//a"));
+//		List<WebElement> listofEmpname = driver.findElements(By.xpath("//table[@class='table hover']//td[4]"));
+//		List<String> usernameregx = new ArrayList<String>();
+//		
+//		Iterator<WebElement> it = listofUsername.iterator();
+//		Iterator<WebElement> itemp = listofEmpname.iterator();
+//		
+//		while(it.hasNext()&&itemp.hasNext()){
+//			String userName = it.next().getText();
+//			String EmpName = itemp.next().getText();
+//			String replaceUsername = userName.replace(".", " ");
+//			if(EmpName.equals(replaceUsername)){
+//			usernameregx.add(replaceUsername);
+//			}
+//			else{
+//				usernameregx.add("Nothing to Add");
+//			}
+//		}
+//		
+//		Iterator<String> it1 = usernameregx.iterator();
+//		
+//		while(it1.hasNext()){
+//			System.out.println(it1.next());
+//		}
+//		
+		
+		
+		/* Extract values from columns */
 //		String beforexpath = "//div[@Id='customerList']//tbody//descendant::td[contains(text(),'"+username+"')]";
 //		String result = driver.findElement(By.xpath(beforexpath)).getText();
 //		System.out.println(result);
@@ -98,8 +103,10 @@ public static void main(String args[]){
 //		}
 //		}
 			
-		
-		driver.quit();
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+			driver.quit();
+		}
 		}	
 	}
 
