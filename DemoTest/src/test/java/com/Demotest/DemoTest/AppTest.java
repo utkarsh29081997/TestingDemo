@@ -44,7 +44,7 @@ public static void main(String args[]){
 		while(it.hasNext()&&itemp.hasNext()){
 			String userName = it.next().getText();
 			String EmpName = itemp.next().getText();
-			String replaceUsername = userName.replaceAll("[^_-.]*", " ");
+			String replaceUsername = userName.replace(".", " ");
 			if(EmpName.equals(replaceUsername)){
 			usernameregx.add(replaceUsername);
 			}
